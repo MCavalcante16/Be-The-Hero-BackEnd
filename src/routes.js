@@ -13,7 +13,7 @@ const { celebrate/*container de validacoes*/, Segments/*Tipos de validacoes*/, J
 const connection = require('./database/connection')
 
 
-routes.post('/sessions', sessionController.create);
+routes.post('/', sessionController.create);
 
 //Listar Ongs
 routes.get('/ongs', ongController.index);
