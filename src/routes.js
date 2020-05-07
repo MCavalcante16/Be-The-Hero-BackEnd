@@ -9,10 +9,6 @@ const sessionController = require('./controllers/SessionController');
 //Validação
 const { celebrate/*container de validacoes*/, Segments/*Tipos de validacoes*/, Joi/*Validacoes*/} = require('celebrate');
 
-//Conexão com o bando de dados
-const connection = require('./database/connection')
-
-
 routes.get('/', function(req, res){
     res.redirect('/sessions');
  });

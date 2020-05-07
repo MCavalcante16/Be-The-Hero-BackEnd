@@ -1,23 +1,8 @@
-const connection = require('../database/connection');
+const Caso = require('../models/Caso');
 
 module.exports = {
     async index (request, response) {
-        const { page = 1 } = request.query;
-
-        const [count] = await connection('incidents').count();
-
-        const incidents = await connection('incidents')
-            .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
-            .limit(5) //itens por pagina
-            .offset((page - 1) * 5)  //quantos itens vai pular
-            .select(['incidents.*',
-                     'ongs.name',
-                     'ongs.email',
-                     'ongs.whatsapp',
-                     'ongs.city',
-                     'ongs.uf']);
-
-        response.header('X-Total-Count', count['count(*)']);
+        const incidents = await Caso.find();
 
         return response.json(incidents);
     },
@@ -25,32 +10,29 @@ module.exports = {
 
     async create (request, response) {
         const { title, description, value } = request.body;
-        const ong_id = request.headers.authorization;
+        const ong = request.headers.authorization;
 
-        const [id] = await connection('incidents').insert({
+        const caso = await Caso.create({
             title,
             description,
             value,
-            ong_id,
+            ong,
         });
 
-        return response.json({ id });
+        return response.json(caso);
     },
 
     async delete(request, response) {
         const { id } = request.params;
         const ong_id = request.headers.authorization;
 
-        const incident = await connection('incidents')
-            .where('id', id)
-            .select('ong_id')
-            .first();
+        const caso = await Caso.findOne({ id })
 
-        if (incident.ong_id != ong_id){
+        if (caso.ong != ong_id){
             return response.status(401).json({ error: 'Operation not permitted.' })
         }
 
-        await connection('incidents').where('id', id).delete();
+        await Caso.deleteOne({ id });
 
         return response.status(204).send(); //Status 204 = Resultado correto porem sem conteudo de retorno
     }

@@ -1,9 +1,9 @@
-const connection = require('../database/connection'); 
+const Ong = require('../models/Ong'); 
 const generateUniqueId = require('../utils/generateUniqueId');
 
 module.exports = {
     async index (request, response)  {
-        const ongs = await connection('ongs').select('*');
+        const ongs = await Ong.find();
         return response.json(ongs);
     },
 
@@ -13,15 +13,15 @@ module.exports = {
         //Criar id aleatorio para cada nova ong
         const id = generateUniqueId();
 
-        await connection('ongs').insert({
-            id,
+        ong = await Ong.create({
+            id, 
             name,
             email,
             whatsapp,
             city,
-            uf,
-        });
+            uf
+        })
 
-        return response.json({ id });
+        return response.json({ id })
     }
 };
