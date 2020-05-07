@@ -1,4 +1,5 @@
 const Caso = require('../models/Caso');
+const generateUniqueInc = require('../utils/generateUniqueInc');
 
 module.exports = {
     async index (request, response) {
@@ -12,7 +13,10 @@ module.exports = {
         const { title, description, value } = request.body;
         const ong = request.headers.authorization;
 
+        const id = generateUniqueInc();
+
         const caso = await Caso.create({
+            id,
             title,
             description,
             value,

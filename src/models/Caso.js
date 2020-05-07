@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const CasoSchema = new mongoose.Schema({
+    id: { type: Number, unique: true, min: 1 },
     title: String,
     description: String,
     value: Number,

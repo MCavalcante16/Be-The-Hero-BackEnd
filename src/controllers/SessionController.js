@@ -4,7 +4,7 @@ module.exports = {
     async create(request, response) {
         const { id } = request.body;
 
-        const { name } = await Ong.findOne({ id })
+        const { name } = await Ong.findOne({ 'id': id })
 
         if (!name) {
             return response.status(400).json({ error: 'No ONG found with this ID' })
