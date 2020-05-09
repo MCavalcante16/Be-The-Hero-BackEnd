@@ -12,12 +12,14 @@ module.exports = {
         const res = [];
         for (var i = 0; i < incidents.length; i++)
             res.push({
+                id: incidents[i].id,
                 name: ong.name,
                 title: incidents[i].title,
                 description: incidents[i].description,
                 value: incidents[i].value,
                 whatsapp: ong.whatsapp,
                 email: ong.email,
+                _id: incidents[i].ong
             })
 
         return response.json(res);
