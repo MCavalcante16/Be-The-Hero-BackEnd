@@ -4,7 +4,7 @@ const OngSchema = new mongoose.Schema({
     id: String,
     name: String,
     email: String,
-    whatsapp: Number,
+    whatsapp: String,
     city: String,
     uf: String
 })
