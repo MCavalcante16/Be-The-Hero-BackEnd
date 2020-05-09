@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect('mongodb+srv://maurikin:32669588@cluster0-dfs4d.mongodb.net/bethehero?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
