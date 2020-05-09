@@ -9,15 +9,16 @@ module.exports = {
 
         const incidents = await Caso.find({ 'ong': ong._id })
         
-        //Todo - Colocar esse res dentro de um for para atribuir valores a cada incident
-        const res = ({
-            name: ong.name,
-            title: incidents.title,
-            description: incidents.description,
-            value: incidents.value,
-            whatsapp: ong.whatsapp,
-            email: ong.email,
-        })
+        const res = [];
+        for (var i = 0; i < incidents.length; i++)
+            res.push({
+                name: ong.name,
+                title: incidents[i].title,
+                description: incidents[i].description,
+                value: incidents[i].value,
+                whatsapp: ong.whatsapp,
+                email: ong.email,
+            })
 
         return response.json(res);
     }
